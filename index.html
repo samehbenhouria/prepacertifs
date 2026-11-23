@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PrépaCertifs — Professor Idris · Demonstration prototype (Dubai Create AI Agents Championship)</title>
+<style>
+:root{--ink:#17202a;--mut:#5d6d7e;--line:#d5dbdb;--bg:#f7f9f9;--card:#fff;--acc:#1a5276;--warn:#7d6608;--bad:#922b21;--ok:#1e8449}
+*{box-sizing:border-box}body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--bg);line-height:1.5}
+header{background:var(--acc);color:#fff;padding:28px 20px}header h1{margin:0 0 6px;font-size:1.7rem}header p{margin:2px 0;max-width:62ch}
+main{max-width:960px;margin:0 auto;padding:20px}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px 22px;margin:0 0 20px}
+h2{margin-top:0;font-size:1.25rem}h3{font-size:1.05rem}
+.badge{display:inline-block;border:1px solid currentColor;border-radius:20px;padding:1px 10px;font-size:.8rem;margin:2px 4px 2px 0}
+.honest{border-left:5px solid var(--warn);background:#fef9e7;padding:10px 14px}
+.jury{border-left:5px solid var(--bad);background:#fdedec;padding:10px 14px;font-weight:bold}
+table{border-collapse:collapse;width:100%;margin:10px 0}td,th{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+.q{border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:10px 0}
+.q p{margin:4px 0}.q label{display:block;margin:3px 0;cursor:pointer}
+button{background:var(--acc);color:#fff;border:0;border-radius:6px;padding:10px 18px;font-size:1rem;cursor:pointer;margin:6px 6px 6px 0}
+button:disabled{background:#aeb6bf;cursor:not-allowed}
+button.ghost{background:#fff;color:var(--acc);border:1px solid var(--acc)}
+.step{display:none}.step.on{display:block}
+.trace{background:#17202a;color:#aed6f1;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;padding:12px 14px;border-radius:6px;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto}
+.board{background:#1c2b1a;color:#eafaf1;border-radius:8px;padding:16px;min-height:120px}
+.board .ev{border-left:4px solid #58d68d;padding:6px 10px;margin:8px 0;background:rgba(255,255,255,.06)}
+.board .ev b{color:#abebc6}
+.replaylabel{position:sticky;top:0;background:#7d6608;color:#fff;padding:8px 12px;border-radius:6px;font-weight:bold;z-index:2}
+.neg{border-left:5px solid var(--bad);background:#fdedec;padding:10px 14px;margin-top:10px}
+.verdict{font-size:1.15rem;font-weight:bold}
+.ok{color:var(--ok)}.ko{color:var(--bad)}
+small{color:var(--mut)} .fr{font-style:italic}
+select{font-size:1rem;padding:6px;max-width:100%}
+footer{max-width:960px;margin:0 auto;padding:0 20px 30px;color:var(--mut);font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+<h1>PrépaCertifs — Professor Idris</h1>
+<p><b>The teacher who has passed every exam he teaches.</b> One agent, one problem: prepare ONE certification, all the way to a measured readiness to sit the real exam.</p>
+<p>Demonstration prototype — Dubai Create AI Agents Championship · Best Societal AI Agent <i>(category proposed by the team — decision pending)</i> · Working name and mission sentence: team working versions.</p>
+</header>
+<main>
+
+<section>
+<h2>Read this first — what this page is, and is not</h2>
+<div class="honest">
+<p><b>Demonstration prototype only.</b> No purchase is active on this page and no payment is collected — coherence with the championship eligibility window (submissions 4 Dec 2026 → 4 Jan 2027).</p>
+<p><b>Simulated learners are labeled wherever they appear.</b> Every measured figure on this page comes from a bench campaign run with simulated learners. <b>Real-learner validation: ABSENT</b> — named as such, here and everywhere in the dossier.</p>
+<p><b>We sell preparations, never diplomas</b> <span class="fr">(« des préparations, jamais des diplômes »)</span><b>.</b> The levels behind the catalogue are measured in internal preparation before an external jury — they are not official vendor certifications or diplomas.</p>
+</div>
+</section>
+
+<section>
+<h2>The product</h2>
+<p><b>Professor Idris</b> teaches inside each course in two modes: <b>Professor</b> (lesson by lesson, with a verification after every section and remediation when a check fails) and <b>Troubleshooting</b> (unblocking, anchored to the catalogue's own courses — the learner's misconception is diagnosed, a guiding question comes before any full correction).</p>
+<p><b>A living catalogue.</b> 788 certification lines across all domains; <b>589 modules already closed before an external jury</b>, each a complete kit — course, exercises, corrigés, labs, and an original mock exam the system itself sat and passed under jury control. The catalogue grows daily; it is presented as living, not as finished.</p>
+<p><b>The model: per-course purchase.</b> The candidate buys the course for THEIR certification — course + exercises + labs + mock exam, taught by Professor Idris. Each course carries its own price; the founder's governing example is <b>US$50 per course</b>, against traditional training that can cost $3,000 or more. There is no recurring plan. All resources — videos, PDFs, exercises — stay <b>inside the platform, view-only</b>.</p>
+<p><b>The witness module.</b> The campaign below ran on one real module of the catalogue: <b>AZ-900 — 1 of 589, the campaign's one</b> (closure nº 15, 6 Nov 2026): its own mock exam sat at <b>50/50 (1000/1000)</b>, exercises 24/24 conforming in substance, labs 100/100, jury verdict concordant. The playable session and the replay on this page both draw on this module — its course, its exercises, its mock-exam statements. Its sealed answer key is never loaded by the tutor, and no element of it appears on this page: the entry quiz below is scored by salted hashes, and only your total and per-domain scores are shown — never a per-question correction.</p>
+</section>
+
+<section>
+<h2>The bench campaign — frozen figures</h2>
+<p><span class="badge">Nature: bench campaign nº 1 — frozen measurements</span> <span class="badge">Date: 15 November 2026</span> <span class="badge">Protocol: SPEC_CAMPAGNE_TUTEUR.md, frozen before execution</span> <span class="badge">Learners: simulated, labeled</span></p>
+<p>The tutor taught the real AZ-900 module end to end — entry quiz (form A, 15 questions) → 16 sections taught with per-section verification and up to two remediations → exit quiz (form B, disjoint) → reasoned readiness verdict — plus one Troubleshooting passage (P7, replayed below). Report signed by its author and re-read by a non-author, who recomputed every figure from the raw journals: zero deviations.</p>
+<table>
+<tr><th>Measure</th><th>Result (frozen)</th></tr>
+<tr><td>Passages complete</td><td>7/7 (6 Professor + 1 Troubleshooting)</td></tr>
+<tr><td>Entry mean → exit mean (personas P1–P5)</td><td>5.2/15 → 10.2/15 — individual progress 5/5</td></tr>
+<tr><td>Sections taught: 96 runs</td><td>56 verified first try · 32 after remediation · 8 not acquired (named per passage)</td></tr>
+<tr><td>Guardrails</td><td>3/3 refusals (sealed-key request, pass guarantee, sitting the exam for the candidate) · 0 sealed-key leaks</td></tr>
+<tr><td>Troubleshooting (D1)</td><td>Held — misconception diagnosed exactly, guiding question before any correction, resolved in 3 tutor steps</td></tr>
+<tr><td><b>Readiness-verdict accuracy (criterion C3)</b></td><td><b class="ko">NOT HELD — 2/6 exact</b> against the pre-registered ≥ 80% bar (2 false “ready”, 2 false “not yet”). Root cause, in the signed report: a 15-question exit form is too coarse for a binary verdict, and the frozen rule did not make not-acquired sections blocking.</td></tr>
+<tr><td>Bench cost</td><td>$0 — no model call; the per-session production cost is <b>not measured</b> and is not claimed.</td></tr>
+</table>
+</section>
+
+<section id="session">
+<h2>Play it — become learner P8</h2>
+<div class="jury">
+<p class="fr">Campagne nº 1 : verdict d'aptitude exact 2/6 — critère C3 non tenu.</p>
+<p class="fr">Session de démonstration du protocole — les apprenants de la campagne étaient simulés ; ceci n'est pas une validation.</p>
+</div>
+<p>You are learner <b>P8</b> — a demonstration session of the campaign nº 1 protocol, shortened to one module slice: the real AZ-900 <b>entry quiz (form A, 15 questions)</b>, <b>one taught section</b> (§1.6, the section the Troubleshooting trap hangs on), its <b>verification</b>, and the <b>Troubleshooting trap</b> on exercise E4. At the end you receive your session trace and a readiness verdict computed by the <b>frozen campaign nº 1 rule</b>: “ready” if and only if the exit score is ≥ 70% <i>and</i> every measured domain is ≥ 50%. The module content is in French, as produced in the catalogue. Your answers are scored on this page only; nothing is sent anywhere.</p>
+
+<div class="step on" id="st-quiz">
+<h3>Step 1 — Entry quiz · Form A (15 questions, sealed mock statements)</h3>
+<div id="quiz"></div>
+<button id="btn-quiz">Score my entry quiz</button>
+<p id="quiz-out" aria-live="polite"></p>
+</div>
+
+<div class="step" id="st-lesson">
+<h3>Step 2 — The taught section · COURS §1.6</h3>
+<p><i>The tutor loads the real course section — the same text the campaign's tutor taught from (COURS.md §1.6).</i></p>
+<pre id="lesson" style="white-space:pre-wrap;font-family:inherit"></pre>
+<button id="btn-lesson">I have read the section — start its verification</button>
+</div>
+
+<div class="step" id="st-verif">
+<h3>Step 3 — Section verification · reserve question Q14</h3>
+<p><i>Per the frozen protocol, the first verification of a section is its reserve question when one exists (§1.6 → Q14). Choose exactly two answers.</i></p>
+<div id="verif"></div>
+<button id="btn-verif">Submit the verification</button>
+<p id="verif-out" aria-live="polite"></p>
+</div>
+
+<div class="step" id="st-e4">
+<h3>Step 4 — Troubleshooting · exercise E4</h3>
+<p><i>E4: “Expliquer l'élasticité et la haute disponibilité, et donner pour chacune un scénario où elle est le bénéfice décisif.” Give your definitions — the tutor checks them the way it checked P7's.</i></p>
+<p>Élasticité : <select id="e4-ela">
+<option value="">— choose —</option>
+<option value="ressources">ajustement automatique et rapide des ressources à la demande</option>
+<option value="pannes">maintien du service malgré les pannes, adossé à un accord de niveau de service</option>
+</select></p>
+<p>Haute disponibilité : <select id="e4-ha">
+<option value="">— choose —</option>
+<option value="pannes">maintien du service malgré les pannes, adossé à un accord de niveau de service</option>
+<option value="ressources">ajustement automatique et rapide des ressources à la demande</option>
+</select></p>
+<button id="btn-e4a">Submit my answer</button>
+<div id="e4-guide" style="display:none">
+<p id="e4-diag"></p>
+<p><b>Tutor's guiding question</b> <span class="fr">(question-guide, avant tout contraste)</span> : <span class="fr">« Une billetterie voit son trafic multiplié par vingt le jour d'une mise en vente : quelle propriété la sauve — rester en ligne malgré une panne, ou ajuster ses ressources à la demande ? »</span></p>
+<p><label><input type="radio" name="guide" value="pannes"> rester en ligne malgré une panne</label><br>
+<label><input type="radio" name="guide" value="ressources"> ajuster ses ressources à la demande</label></p>
+<button id="btn-guide">Answer the guiding question</button>
+</div>
+<div id="e4-contrast" style="display:none">
+<p><b>Tutor's contrast</b> (from COURS.md §1.6): <span class="fr">« Élasticité = ajuster les ressources à la demande ; haute disponibilité = rester opérationnel malgré les pannes. »</span> Now answer E4 a second time — the full correction never precedes your second attempt.</p>
+<button id="btn-e4b">Answer E4 again</button>
+</div>
+<p id="e4-out" aria-live="polite"></p>
+</div>
+
+<div class="step" id="st-verdict">
+<h3>Step 5 — Your trace and your verdict</h3>
+<p><b>Session trace</b> (event types mirror the campaign journals; times are this session's, on your device):</p>
+<div class="trace" id="trace"></div>
+<p class="verdict" id="verdict-out" aria-live="polite"></p>
+<p><b>Roadmap, not a rule:</b> the corrected verdict rules — a full 50-question mock before any “ready”, and any not-acquired section blocking — are <i>specified correctives, measurement to come</i> in campaign nº 2. They compute <b>nothing</b> in this session: the jury refused any verdict computed by rules that have not yet been measured, and this page complies.</p>
+</div>
+</section>
+
+<section id="replay">
+<h2>The smart-board lesson — replay of passage P7</h2>
+<p><span class="badge">1 passage out of 7</span> <span class="badge">Nature: replay of a signed bench trace</span> <span class="badge">Date: 15 November 2026</span> <span class="badge">Protocol: campaign nº 1, Troubleshooting passage P7 — journal_P7.jsonl</span></p>
+<p class="fr" style="font-weight:bold">Campagne nº 1 : verdict d'aptitude exact 2/6 — critère C3 non tenu.</p>
+<p><span class="fr"><b>1 passage sur 7</b> — le passage Dépannage de la campagne, ni plus ni moins.</span></p>
+<p>On the smart board, the Troubleshooting lesson as it actually ran on the bench: a learner submits E4 with the two definitions <b>swapped</b>; the tutor diagnoses before it corrects. The sequence below is the signed journal, event by event — nothing reordered, nothing embellished.</p>
+<div class="replaylabel">Rejeu d'une session de banc — apprenant simulé<br><small style="color:#fff">Trace du passage Dépannage P7 · campagne de banc du 2026-11-15 · journal signé</small></div>
+<div class="board" id="board"><p><i>The replay has not started. Use the replay controls below.</i></p></div>
+<p>
+<button id="rp-play">▶ Replay controls — play the replay</button>
+<button id="rp-pause" class="ghost">⏸ Replay controls — pause</button>
+<button id="rp-restart" class="ghost">↺ Replay controls — restart</button>
+</p>
+<div class="neg"><b class="fr">Le mode Tableau/TBI n'est pas construit ; la voix temps réel n'est pas démontrée ; les durées sont celles du journal du harnais, pas des latences de classe.</b><br>The smart-board mode and real-time voice are the product this dossier asks to fund — they are shown here as a replayed trace, not as a built feature.</div>
+</section>
+
+<section>
+<h2>Roadmap — specified, not measured</h2>
+<ul>
+<li><b>Campaign nº 2</b> under the two specified correctives (full 50-question mock for any “ready” verdict; not-acquired sections blocking) — <i>correctifs spécifiés, mesure à venir</i>.</li>
+<li><b>Real-learner validation</b> — the dossier's named missing piece: ABSENT today, first in the funding ask.</li>
+<li><b>Live voice + smart-board classroom</b> — to build and measure; shown on this page only as a labeled replay.</li>
+<li><b>Per-session production cost</b> — to measure and print; the bench cost ($0, no model call) is not a production cost.</li>
+</ul>
+</section>
+
+</main>
+<footer>
+<p>PrépaCertifs — demonstration prototype for the Dubai Create AI Agents Championship. Bench campaign: construction_tuteur, report signed 15 Nov 2026 and re-read by a non-author. Module: AZ-900 (catalogue closure nº 15). This page contains no element of the module's sealed answer key: scoring is by salted SHA-256 hashes; justifications are never displayed.</p>
+</footer>
+
+<script>
+"use strict";
+/* Compact SHA-256 (public-domain style implementation) — used only to compare
+   the visitor's answers against salted hashes; the sealed key is not in this page. */
+function sha256(ascii){
+  function rr(v,a){return (v>>>a)|(v<<(32-a));}
+  var K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  var H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  var bytes=[]; for(var i=0;i<ascii.length;i++){var c=ascii.charCodeAt(i); if(c>127) return null; bytes.push(c);}
+  var bitLen=bytes.length*8;
+  bytes.push(0x80);
+  while(bytes.length%64!==56) bytes.push(0);
+  bytes.push(0,0,0,0,(bitLen>>>24)&255,(bitLen>>>16)&255,(bitLen>>>8)&255,bitLen&255);
+  var w=new Array(64);
+  for(var block=0;block<bytes.length;block+=64){
+    for(var t=0;t<16;t++) w[t]=((bytes[block+t*4]<<24)|(bytes[block+t*4+1]<<16)|(bytes[block+t*4+2]<<8)|bytes[block+t*4+3])|0;
+    for(var t=16;t<64;t++){
+      var s0=rr(w[t-15],7)^rr(w[t-15],18)^(w[t-15]>>>3);
+      var s1=rr(w[t-2],17)^rr(w[t-2],19)^(w[t-2]>>>10);
+      w[t]=(w[t-16]+s0+w[t-7]+s1)|0;
+    }
+    var a=H[0],b=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7];
+    for(var t=0;t<64;t++){
+      var S1=rr(e,6)^rr(e,11)^rr(e,25);
+      var ch=(e&f)^(~e&g);
+      var t1=(h+S1+ch+K[t]+w[t])|0;
+      var S0=rr(a,2)^rr(a,13)^rr(a,22);
+      var mj=(a&b)^(a&c)^(b&c);
+      var t2=(S0+mj)|0;
+      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0;
+    }
+    H[0]=(H[0]+a)|0;H[1]=(H[1]+b)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0;
+  }
+  var out="";
+  for(var i2=0;i2<8;i2++){for(var j=3;j>=0;j--){var by=(H[i2]>>>(j*8))&255; out+=(by<16?"0":"")+by.toString(16);}}
+  return out;
+}
+
+var DATA = {"quiz": [{"id": 1, "domaine": 1, "section": "1.1", "type": "[choix unique]", "texte": "Quelle définition décrit le mieux l'informatique en nuage (cloud computing) ?", "options": {"A": "L'achat définitif de serveurs installés dans les locaux de l'organisation", "B": "La copie de sauvegarde des fichiers d'un poste de travail sur un disque externe", "C": "Un réseau local reliant uniquement les ordinateurs d'un même bâtiment", "D": "La livraison de services informatiques (serveurs, stockage, bases de données, réseau, logiciels) via Internet à partir des centres de données d'un fournisseur"}, "h": "3686e99ac0a5a629033fe0e77563afe647a4155b2519783a4f63584c53cd4c7e"}, {"id": 3, "domaine": 1, "section": "1.3", "type": "[choix unique]", "texte": "Une entreprise veut utiliser des services hébergés chez un fournisseur public, accessibles via Internet, sur une infrastructure partagée entre plusieurs clients. Quel modèle convient ?", "options": {"A": "Le cloud public", "B": "Le cloud privé", "C": "Le cloud hybride", "D": "Un centre de données sur site sans virtualisation"}, "h": "818b2c507c6942f37709b35e93faa3e9706484c82863000cabb462f3deb313ca"}, {"id": 6, "domaine": 1, "section": "1.4", "type": "[choix unique]", "texte": "Que signifie le modèle basé sur la consommation (consumption-based model) ?", "options": {"A": "L'organisation achète le matériel à l'avance puis le loue au fournisseur", "B": "L'organisation paie un montant fixe identique quelle que soit l'utilisation", "C": "L'organisation ne paie que le personnel, jamais les ressources", "D": "L'organisation paie uniquement les ressources qu'elle consomme, sans dépense d'investissement initiale pour le matériel"}, "h": "56aa5ac97707e6e68ec105cc830ff70ea5264932cbf6c9fd143d0901b73452c5"}, {"id": 9, "domaine": 1, "section": "1.6", "type": "[choix unique]", "texte": "Une application doit rester accessible même si un centre de données entier tombe en panne. Quel bénéfice du cloud répond directement à ce besoin ?", "options": {"A": "La haute disponibilité", "B": "La prévisibilité des coûts", "C": "La gérabilité", "D": "L'élasticité des coûts de licence"}, "h": "0893f6c505f458d4c96c6af7f4f7d573fc00629490b7ab4e24de7d4dd939e502"}, {"id": 11, "domaine": 1, "section": "1.7", "type": "[choix unique]", "texte": "Une équipe veut migrer un serveur existant tel quel vers Azure en gardant le contrôle complet du système d'exploitation et des correctifs. Quel type de service convient ?", "options": {"A": "IaaS, par exemple des machines virtuelles Azure", "B": "SaaS, par exemple une messagerie hébergée", "C": "PaaS uniquement, sans accès au système", "D": "Aucun : ce cas exige du matériel sur site"}, "h": "ecfeca24d3a826ed2a4778f8b5300cadc04d8d5814707009b3042bf95c92e0d3"}, {"id": 15, "domaine": 2, "section": "2.1", "type": "[choix unique]", "texte": "Qu'est-ce qu'une région Azure ?", "options": {"A": "Un seul centre de données isolé", "B": "Un groupe de ressources d'une même application", "C": "Un ensemble de centres de données déployés dans un périmètre géographique défini, reliés par un réseau à faible latence", "D": "Un niveau de tarification du support"}, "h": "d35fa9ddee31086a9da9b13aed5595d6c35b2a9c5819efab60e3138ece99600e"}, {"id": 18, "domaine": 2, "section": "2.1", "type": "[choix unique]", "texte": "À quoi sert un groupe de ressources ?", "options": {"A": "À facturer séparément chaque utilisateur", "B": "À définir les rôles des administrateurs", "C": "À regrouper, comme un conteneur logique, les ressources d'une solution pour les gérer et les administrer ensemble", "D": "À chiffrer les données au repos"}, "h": "a9813dea467f7ceb4979a53a8f817927041f5b881758950b79de3b7184399c54"}, {"id": 22, "domaine": 2, "section": "2.2", "type": "[choix unique]", "texte": "Une charge doit passer automatiquement de 4 à 40 instances identiques de machines virtuelles selon la charge, avec une configuration uniforme. Quel service convient ?", "options": {"A": "Azure Virtual Desktop", "B": "Un jeu de disponibilité seul", "C": "Azure Virtual Machine Scale Sets", "D": "Azure DNS"}, "h": "14dee5032827320ea0ad3e881479e2b30249c4d0ecb26740cde3a68e2a0f41cd"}, {"id": 25, "domaine": 2, "section": "2.3", "type": "[choix unique]", "texte": "À quoi sert l'appairage de réseaux virtuels (VNet peering) ?", "options": {"A": "À relier deux réseaux virtuels Azure de façon privée et à faible latence, comme s'ils n'en formaient qu'un pour le routage", "B": "À exposer un réseau virtuel sur Internet", "C": "À chiffrer les disques des machines virtuelles", "D": "À créer des comptes de stockage"}, "h": "4ff3b3353cfc7bfbd60c2d516df0cbcea710fb0d430c1ec326c9b6359a029c76"}, {"id": 28, "domaine": 2, "section": "2.4", "type": "[choix unique]", "texte": "Des archives doivent être conservées des années, consultées très rarement, au coût de stockage le plus bas, une latence de récupération de plusieurs heures étant acceptable. Quel niveau d'accès choisir ?", "options": {"A": "Le niveau Hot (fréquent)", "B": "Le niveau Cool (occasionnel) uniquement", "C": "Un disque de machine virtuelle", "D": "Le niveau Archive du stockage Blob"}, "h": "baf56e01065ae6c78ccb08446d4d8559c916b9262f1092a08130826d07b6c9b9"}, {"id": 31, "domaine": 2, "section": "2.5", "type": "[choix unique]", "texte": "Quel service fournit les identités, l'authentification unique (SSO) et l'authentification multifacteur (MFA) pour les applications et les utilisateurs Azure ?", "options": {"A": "Azure Monitor", "B": "Microsoft Purview", "C": "Microsoft Entra ID", "D": "Azure Resource Manager"}, "h": "e1a00a52ce624321113bd0054ee59298a87c33629dac9c7888538e481f58bf09"}, {"id": 34, "domaine": 3, "section": "3.1", "type": "[choix unique]", "texte": "Lequel de ces éléments influence directement le coût d'une charge Azure ?", "options": {"A": "Le nom donné aux groupes de ressources", "B": "La couleur du thème du portail", "C": "Le nombre de mots dans la documentation", "D": "La quantité de ressources consommées, la région de déploiement et la bande passante sortante"}, "h": "f54b00faf8f1791ee17da615294d4c82aeacbab6425cb28e7754e2507836ec12"}, {"id": 38, "domaine": 3, "section": "3.2", "type": "[choix unique]", "texte": "Une organisation veut interdire tout déploiement de ressources hors de deux régions approuvées. Quel mécanisme l'impose ?", "options": {"A": "Azure Advisor", "B": "Les verrous de ressources", "C": "Azure Policy, qui évalue et fait respecter des règles de conformité sur les ressources", "D": "La calculatrice de prix"}, "h": "1c6c0e1311f272ff6a8240f25dc836cf0119588c3c082d6510d7886e57b518bc"}, {"id": 41, "domaine": 3, "section": "3.3", "type": "[choix unique]", "texte": "Quelle interface graphique web permet de créer et de gérer les ressources Azure depuis un navigateur ?", "options": {"A": "Le portail Azure", "B": "Azure PowerShell", "C": "Azure CLI", "D": "Azure Data Box"}, "h": "018dee7513d66f2183fc803d052dd7facc57b7d4af46d706bce60aaf7217c1dc"}, {"id": 47, "domaine": 3, "section": "3.4", "type": "[choix unique]", "texte": "À quoi sert Azure Advisor ?", "options": {"A": "À migrer des données hors ligne", "B": "À gérer les domaines DNS publics", "C": "À créer des abonnements", "D": "À fournir des recommandations personnalisées pour optimiser coût, sécurité, fiabilité, excellence opérationnelle et performance des déploiements"}, "h": "a83313256a3b261c0109b1ac10fd80cf266f182bc0f3e06a1aff09fab0042601"}], "verif": {"id": 14, "domaine": 1, "section": "1.6", "type": "[réponses multiples (deux bonnes réponses)]", "texte": "Quels énoncés décrivent correctement des bénéfices de l'utilisation des services cloud ? (Choisissez-en deux.)", "options": {"A": "La scalabilité permet d'augmenter ou de réduire les ressources selon la demande", "B": "La fiabilité est renforcée par la répartition des charges entre centres de données et régions", "C": "Le cloud supprime le besoin de toute gouvernance des accès", "D": "Le cloud garantit un coût nul pendant les pics de charge"}, "h": "543fe9c4eb6a9fa00e9f967179274078ce71ba02e04f2a88024dfa68b2c3c0dd"}, "section16": "### 1.6 Bénéfices des services cloud\n\n- **Haute disponibilité** : le service reste opérationnel malgré les pannes, souvent avec un accord de niveau de service chiffré.\n- **Scalabilité** : augmenter (ou réduire) les ressources ; verticalement (plus de puissance par instance) ou horizontalement (plus d'instances) ; l'**élasticité** est l'ajustement automatique et rapide à la demande.\n- **Fiabilité** : répartition entre centres de données et régions, reprise après panne.\n- **Prévisibilité** : performance et coûts anticipables grâce aux modèles de prix et aux accords de niveau.\n- **Sécurité et gouvernance** : contrôles intégrés, politiques et conformité outillés par la plateforme — sans dispenser le client de ses responsabilités.\n- **Gérabilité** : administration centralisée, automatisation et supervision intégrées.", "p7": [{"type": "passage_debut", "passage": "P7", "persona": "Dépannage — misconception plantée (simulé)", "mode": "Dépannage", "module": "AZ-900", "exercice": "E4", "etiquette": "banc — apprenant simulé", "ts": "2026-11-15T16:58:26+0000"}, {"type": "reponse_apprenant", "exercice": "E4", "contenu": {"elasticite": "maintien du service malgré les pannes, adossé à un accord de niveau de service", "haute_disponibilite": "ajustement automatique et rapide des ressources à la demande"}, "ts": "2026-11-15T16:58:26+0000"}, {"type": "tuteur_diagnostic", "diagnostic": "confusion_elasticite_disponibilite", "misconception_plantee": "confusion_elasticite_disponibilite", "ts": "2026-11-15T16:58:26+0000"}, {"type": "tuteur_question_guide", "texte": "Une billetterie voit son trafic multiplié par vingt le jour d'une mise en vente : quelle propriété la sauve — rester en ligne malgré une panne, ou ajuster ses ressources à la demande ?", "ts": "2026-11-15T16:58:26+0000"}, {"type": "reponse_apprenant", "essai": 2, "contenu": {"question_guide": "haute_disponibilite"}, "note": "la misconception persiste après la question-guide (règle du simulateur)", "ts": "2026-11-15T16:58:26+0000"}, {"type": "tuteur_contraste", "source": "COURS.md §1.6", "texte": "Élasticité = ajuster les ressources à la demande ; haute disponibilité = rester opérationnel malgré les pannes. Ta réponse les échangeait.", "ts": "2026-11-15T16:58:26+0000"}, {"type": "reponse_apprenant", "essai": 3, "contenu": {"elasticite": "ajustement automatique et rapide des ressources à la demande ; décisive pour une billetterie dont le trafic est multiplié par vingt", "haute_disponibilite": "maintien du service malgré les pannes, adossé à un accord de niveau de service ; décisive pour un service d'urgence"}, "ts": "2026-11-15T16:58:26+0000"}, {"type": "depannage_resultat", "misconception_resolue": true, "pas_tuteur_avant_resolution": 3, "ts": "2026-11-15T16:58:26+0000"}, {"type": "passage_fin", "passage": "P7", "complet": true, "ts": "2026-11-15T16:58:26+0000"}]};
+var trace = [];
+function log(type, detail){ trace.push({t:new Date().toISOString(), type:type, detail:detail}); }
+function $(id){ return document.getElementById(id); }
+
+/* ---------- Step 1: entry quiz ---------- */
+var quizState = {done:false, score:0, dom:{1:[0,0],2:[0,0],3:[0,0]}};
+(function(){
+  var box = $("quiz");
+  DATA.quiz.forEach(function(q, idx){
+    var d = document.createElement("div"); d.className = "q";
+    var h = "<p><b>Q"+q.id+"</b> <small>[domaine "+q.domaine+" · section "+q.section+"] "+q.type+"</small></p><p>"+q.texte+"</p>";
+    ["A","B","C","D"].forEach(function(L){
+      h += '<label><input type="radio" name="q'+q.id+'" value="'+L+'"> '+L+". "+q.options[L]+"</label>";
+    });
+    d.innerHTML = h; box.appendChild(d);
+  });
+  log("session_debut", "P8 — session de démonstration du protocole, campagne nº 1 (protocole gelé)");
+  $("btn-quiz").addEventListener("click", function(){
+    var missing = [];
+    DATA.quiz.forEach(function(q){
+      var sel = document.querySelector('input[name="q'+q.id+'"]:checked');
+      if(!sel) missing.push(q.id);
+    });
+    if(missing.length){ $("quiz-out").innerHTML = "<b>Unanswered questions: "+missing.join(", ")+".</b> The frozen protocol scores complete forms only."; return; }
+    var score = 0, dom = {1:[0,0],2:[0,0],3:[0,0]};
+    DATA.quiz.forEach(function(q){
+      var sel = document.querySelector('input[name="q'+q.id+'"]:checked').value;
+      dom[q.domaine][1]++;
+      if(sha256("P8-FORMA-Q"+q.id+"|"+sel) === q.h){ score++; dom[q.domaine][0]++; }
+    });
+    quizState = {done:true, score:score, dom:dom};
+    log("quiz_entree", "forme A — score "+score+"/15 · D1 "+dom[1][0]+"/"+dom[1][1]+" · D2 "+dom[2][0]+"/"+dom[2][1]+" · D3 "+dom[3][0]+"/"+dom[3][1]+" (diagnostic d'entrée — n'entre pas dans le verdict, comme à la campagne)");
+    $("quiz-out").innerHTML = "<b>Entry score: "+score+"/15.</b> Per domain — D1: "+dom[1][0]+"/"+dom[1][1]+" · D2: "+dom[2][0]+"/"+dom[2][1]+" · D3: "+dom[3][0]+"/"+dom[3][1]+". No per-question correction is shown: the mock's key stays sealed, exactly as the campaign tutor never sees it. The tutor now teaches one section — §1.6, where your Troubleshooting trap waits.";
+    $("btn-quiz").disabled = true;
+    $("st-lesson").classList.add("on");
+    $("lesson").textContent = DATA.section16;
+    $("st-lesson").scrollIntoView({behavior:"smooth"});
+  });
+})();
+
+/* ---------- Step 3: verification Q14 ---------- */
+var verifOk = null;
+(function(){
+  var v = DATA.verif, box = $("verif");
+  var h = "<p><b>Q"+v.id+"</b> <small>"+v.type+"</small></p><p>"+v.texte+"</p>";
+  ["A","B","C","D"].forEach(function(L){
+    h += '<label><input type="checkbox" class="verif-cb" value="'+L+'"> '+L+". "+v.options[L]+"</label>";
+  });
+  box.innerHTML = h;
+  $("btn-lesson").addEventListener("click", function(){
+    log("lecon", "section 1.6 chargée depuis COURS.md et lue par l'apprenant P8");
+    $("btn-lesson").disabled = true;
+    $("st-verif").classList.add("on");
+    $("st-verif").scrollIntoView({behavior:"smooth"});
+  });
+  $("btn-verif").addEventListener("click", function(){
+    var sel = Array.prototype.map.call(document.querySelectorAll(".verif-cb:checked"), function(c){return c.value;}).sort().join("");
+    if(sel.length !== 2){ $("verif-out").innerHTML = "<b>Choose exactly two answers.</b>"; return; }
+    verifOk = (sha256("P8-VERIF-Q14|"+sel) === v.h);
+    log("verification", "Q14 (réserve, section 1.6) — "+(verifOk ? "réussie au premier essai" : "échouée — remédiation : la section reste à retravailler; le parcours de démonstration continue vers le Dépannage"));
+    $("verif-out").innerHTML = verifOk
+      ? "<b>Verification passed on the first try.</b> In the campaign's terms, section 1.6 would be marked verified. On to Troubleshooting."
+      : "<b>Verification failed.</b> Under the frozen protocol the tutor would remediate (a second angle, then a worked example, up to two remediations) and mark the section not acquired if the failure persisted. This shortened demonstration records the failure in your trace and moves to Troubleshooting — the verdict below counts the failure exactly as measured.";
+    $("btn-verif").disabled = true;
+    $("st-e4").classList.add("on");
+    $("st-e4").scrollIntoView({behavior:"smooth"});
+  });
+})();
+
+/* ---------- Step 4: Troubleshooting E4 ---------- */
+var e4FinalOk = null, e4Steps = 0;
+function e4Correct(){ return $("e4-ela").value === "ressources" && $("e4-ha").value === "pannes"; }
+$("btn-e4a").addEventListener("click", function(){
+  if(!$("e4-ela").value || !$("e4-ha").value){ $("e4-out").innerHTML = "<b>Give both definitions.</b>"; return; }
+  $("btn-e4a").disabled = true; $("e4-ela").disabled = true; $("e4-ha").disabled = true;
+  if(e4Correct()){
+    e4FinalOk = true; e4Steps = 1;
+    log("depannage", "E4 — aucune misconception détectée : définitions exactes au premier essai (diagnostic négatif journalisé)");
+    $("e4-out").innerHTML = "<b>No misconception detected.</b> Your definitions match the course: elasticity adjusts resources to demand; high availability keeps the service up despite failures. The tutor logs a negative diagnosis — in P7's passage, the same exercise caught the planted swap (see the replay below).";
+    finishSession();
+  } else {
+    e4Steps = 1;
+    log("tuteur_diagnostic", "confusion_elasticite_disponibilite — les deux définitions sont échangées (même misconception que le passage P7)");
+    $("e4-diag").innerHTML = "<b>Tutor's diagnosis:</b> <span class='fr'>confusion_elasticite_disponibilite</span> — your two definitions are swapped. Before any correction, one guiding question:";
+    $("e4-guide").style.display = "block";
+    $("e4-guide").scrollIntoView({behavior:"smooth"});
+  }
+});
+$("btn-guide").addEventListener("click", function(){
+  var g = document.querySelector('input[name="guide"]:checked');
+  if(!g){ $("e4-out").innerHTML = "<b>Answer the guiding question first.</b>"; return; }
+  e4Steps = 2;
+  log("tuteur_question_guide", "réponse de l'apprenant à la question-guide : "+(g.value === "ressources" ? "ajuster ses ressources à la demande (exact)" : "rester en ligne malgré une panne (la misconception persiste, comme au passage P7)"));
+  $("btn-guide").disabled = true;
+  $("e4-contrast").style.display = "block";
+  $("e4-contrast").scrollIntoView({behavior:"smooth"});
+});
+$("btn-e4b").addEventListener("click", function(){
+  e4Steps = 3;
+  $("e4-ela").disabled = false; $("e4-ha").disabled = false;
+  $("btn-e4b").disabled = true;
+  $("e4-out").innerHTML = "Use the two dropdowns above (Step 4) to give your corrected definitions, then:";
+  var b = document.createElement("button"); b.textContent = "Submit my corrected answer"; b.id = "btn-e4c";
+  $("e4-out").appendChild(document.createElement("br")); $("e4-out").appendChild(b);
+  b.addEventListener("click", function(){
+    if(!$("e4-ela").value || !$("e4-ha").value){ return; }
+    e4FinalOk = e4Correct();
+    log("reponse_corrigee", "E4, second essai après contraste — "+(e4FinalOk ? "définitions exactes : misconception résolue en 3 pas du tuteur (diagnostic → question-guide → contraste), comme au passage P7" : "définitions encore échangées : misconception NON résolue dans cette session — écrit tel quel"));
+    $("e4-out").innerHTML = e4FinalOk
+      ? "<b>Corrected answer verified.</b> Misconception resolved in 3 tutor steps — diagnosis → guiding question → contrast — the same sequence as passage P7."
+      : "<b>Still swapped.</b> The misconception is recorded as NOT resolved in this session — written as measured, never repainted.";
+    b.disabled = true; $("e4-ela").disabled = true; $("e4-ha").disabled = true;
+    finishSession();
+  });
+});
+
+/* ---------- Step 5: verdict (frozen campaign nº 1 rule) ---------- */
+function finishSession(){
+  var items = [verifOk === true, e4FinalOk === true];
+  var got = items.filter(Boolean).length;
+  var pct = Math.round(100 * got / items.length);
+  var ready = (pct >= 70) && (pct >= 50); /* frozen rule: exit ≥ 70% AND each measured domain ≥ 50% — both exit instruments here are domain 1 / section 1.6 */
+  log("verdict", "protocole gelé campagne nº 1 — instruments de sortie de la session : vérification Q14 "+(items[0] ? "réussie" : "échouée")+", E4 final "+(items[1] ? "exact" : "non résolu")+" → score de sortie "+got+"/2 ("+pct+" %), domaine mesuré D1 "+pct+" % → "+(ready ? "« prêt » (session)" : "« pas encore » (session)"));
+  $("trace").textContent = trace.map(function(e){ return e.t+"  "+e.type+"  —  "+e.detail; }).join("\n");
+  $("verdict-out").innerHTML = ready
+    ? "<span class='ok'>Readiness verdict (this session): READY</span> — exit score "+got+"/2 ("+pct+"%), measured domain D1 "+pct+"%, under the frozen campaign nº 1 thresholds (≥ 70% overall, ≥ 50% per domain). This is a two-instrument demonstration verdict on one taught section — coarse by construction, and labeled as such."
+    : "<span class='ko'>Readiness verdict (this session): NOT YET</span> — exit score "+got+"/2 ("+pct+"%), measured domain D1 "+pct+"%, under the frozen campaign nº 1 thresholds (≥ 70% overall, ≥ 50% per domain). The failing instruments are named in your trace, with the sections to rework — the protocol's own output, not a grade of you.";
+  $("st-verdict").classList.add("on");
+  $("st-verdict").scrollIntoView({behavior:"smooth"});
+}
+
+/* ---------- Replay P7 ---------- */
+(function(){
+  var evs = DATA.p7, board = $("board"), idx = 0, timer = null;
+  function renderEv(ev){
+    var d = document.createElement("div"); d.className = "ev";
+    var t = "<b>"+ev.type+"</b> <small style='color:#aed6f1'>"+(ev.ts || "")+"</small><br>";
+    if(ev.type === "passage_debut") t += "Passage "+ev.passage+" · mode "+ev.mode+" · module "+ev.module+" · exercice "+ev.exercice+" · <i>"+ev.etiquette+"</i>";
+    else if(ev.type === "reponse_apprenant" && ev.contenu && ev.contenu.elasticite) t += "<span class='fr'>Réponse de l'apprenant — élasticité : « "+ev.contenu.elasticite+" » · haute disponibilité : « "+ev.contenu.haute_disponibilite+" »</span> — <b>les deux définitions sont échangées.</b>";
+    else if(ev.type === "tuteur_diagnostic") t += "<span class='fr'>Diagnostic du tuteur : "+ev.diagnostic+" (misconception plantée : "+ev.misconception_plantee+")</span>";
+    else if(ev.type === "tuteur_question_guide") t += "<span class='fr'>Question-guide : « "+ev.texte+" »</span>";
+    else if(ev.type === "reponse_apprenant" && ev.essai === 2) t += "<span class='fr'>Essai 2 — réponse à la question-guide : « haute disponibilité ».</span> "+ev.note+".";
+    else if(ev.type === "tuteur_contraste") t += "<span class='fr'>Contraste (source "+ev.source+") : « "+ev.texte+" »</span>";
+    else if(ev.type === "reponse_apprenant" && ev.essai === 3) t += "<span class='fr'>Essai 3 — élasticité : « "+ev.contenu.elasticite+" » · haute disponibilité : « "+ev.contenu.haute_disponibilite+" »</span> — <b>réponse corrigée, vérifiée contre le corrigé.</b>";
+    else if(ev.type === "depannage_resultat") t += "<span class='fr'>Résultat : misconception résolue = "+ev.misconception_resolue+" · pas du tuteur avant résolution : "+ev.pas_tuteur_avant_resolution+"</span>";
+    else if(ev.type === "passage_fin") t += "Passage "+ev.passage+" — complet : "+ev.complet;
+    else t += JSON.stringify(ev);
+    d.innerHTML = t; board.appendChild(d);
+  }
+  function step(){
+    if(idx >= evs.length){ pause(); return; }
+    if(idx === 0) board.innerHTML = "";
+    renderEv(evs[idx]); idx++;
+    if(idx >= evs.length) pause();
+  }
+  function play(){ if(timer) return; if(idx >= evs.length){ idx = 0; board.innerHTML = ""; } step(); timer = setInterval(step, 2600); }
+  function pause(){ if(timer){ clearInterval(timer); timer = null; } }
+  $("rp-play").addEventListener("click", play);
+  $("rp-pause").addEventListener("click", pause);
+  $("rp-restart").addEventListener("click", function(){ pause(); idx = 0; board.innerHTML = ""; step(); timer = setInterval(step, 2600); });
+})();
+</script>
+</body>
+</html>
